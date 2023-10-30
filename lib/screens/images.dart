@@ -15,8 +15,8 @@ class Images extends StatelessWidget {
             },
             child: Icon(Icons.whatshot_outlined, color: Colors.white),
             style: ElevatedButton.styleFrom(
-              primary: Colors.lightBlueAccent,
-              onPrimary: Colors.pink,
+              primary: Colors.pink,
+              onPrimary: Colors.black,
               elevation: 5,
               fixedSize: Size(50, 50),
             ),
@@ -26,10 +26,10 @@ class Images extends StatelessWidget {
             onPressed: () {
               print('what is up?');
             },
-            child: Icon(Icons.whatshot_outlined, color: Colors.pink),
+            child: Icon(Icons.whatshot_outlined, color: Colors.white),
             style: ElevatedButton.styleFrom(
-              primary: Colors.lightBlueAccent,
-              onPrimary: Colors.white,
+              primary: Colors.pink,
+              onPrimary: Colors.black,
               elevation: 5,
               fixedSize: Size(50, 50),
             ),
