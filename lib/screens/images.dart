@@ -36,6 +36,40 @@ class Images extends StatelessWidget {
           ),
         ],
       ),
+      persistentFooterButtons: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              onPressed: () {
+
+              },
+              icon: Icon(Icons.home, color: Colors.pink),
+            ),
+            IconButton(
+              onPressed: () {
+
+              },
+              icon: Icon(Icons.shop, color: Colors.pink),
+            ),
+            IconButton(
+              onPressed: () {
+
+              },
+              icon: Icon(Icons.checkroom, color: Colors.pink),
+            ),
+            IconButton(
+              onPressed: () {
+
+              },
+              icon: Icon(Icons.person, color: Colors.pink),
+              style: ButtonStyle(
+                overlayColor: MaterialStateProperty.all<Color>(Colors.redAccent),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
