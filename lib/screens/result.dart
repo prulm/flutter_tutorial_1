@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial_1/screens/images.dart';
+import 'package:flutter_tutorial_1/screens/lucky_jade_plant.dart';
 
 class Result extends StatelessWidget {
   final bmi;
@@ -11,7 +12,13 @@ class Result extends StatelessWidget {
       appBar: AppBar(
         title: Text("Result"),
         actions: [
-          IconButton(icon: Icon(Icons.save, color: Colors.white), onPressed: () {},)
+          IconButton(
+            icon: Icon(Icons.save, color: Colors.white),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LuckyJade()));
+            },
+          )
         ],
       ),
       drawer: Drawer(
