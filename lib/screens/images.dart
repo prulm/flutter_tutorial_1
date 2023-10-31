@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tutorial_1/screens/spotify_layout.dart';
 
 class Images extends StatelessWidget {
   const Images({super.key});
@@ -8,7 +9,8 @@ class Images extends StatelessWidget {
     return Scaffold(
       body: ListView(
         children: [
-          Image.network('https://images.unsplash.com/photo-1698551899401-bd5391406d6f?auto=format&fit=crop&q=80&w=464&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+          Image.network(
+              'https://images.unsplash.com/photo-1698551899401-bd5391406d6f?auto=format&fit=crop&q=80&w=464&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
           ElevatedButton(
             onPressed: () {
               print('what is up?');
@@ -41,30 +43,28 @@ class Images extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
-              onPressed: () {
-
-              },
+              onPressed: () {},
               icon: Icon(Icons.home, color: Colors.pink),
             ),
             IconButton(
               onPressed: () {
-
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Spotify()),
+                );
               },
               icon: Icon(Icons.shop, color: Colors.pink),
             ),
             IconButton(
-              onPressed: () {
-
-              },
+              onPressed: () {},
               icon: Icon(Icons.checkroom, color: Colors.pink),
             ),
             IconButton(
-              onPressed: () {
-
-              },
+              onPressed: () {},
               icon: Icon(Icons.person, color: Colors.pink),
               style: ButtonStyle(
-                overlayColor: MaterialStateProperty.all<Color>(Colors.redAccent),
+                overlayColor:
+                    MaterialStateProperty.all<Color>(Colors.redAccent),
               ),
             ),
           ],
