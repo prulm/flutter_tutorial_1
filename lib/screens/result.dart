@@ -10,6 +10,9 @@ class Result extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Result"),
+        actions: [
+          IconButton(icon: Icon(Icons.save, color: Colors.white), onPressed: () {},)
+        ],
       ),
       drawer: Drawer(
           child: ListView(children: [
