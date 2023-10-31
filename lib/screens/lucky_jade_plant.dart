@@ -28,22 +28,24 @@ class LuckyJade extends StatelessWidget {
       body: Column(
         children: [
           Image.network('https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&q=80&w=1472&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Lucky-jade-plant',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 2.0,
-              ),),
-              SizedBox(height: 10,),
-              Text('Plants make your life minimal and happy\nlove the plants more and enjoy life.',
-              style: TextStyle(
-                color: Colors.grey[700],
-                fontSize: 12,
-              ),)
-            ],
+          Padding(
+            padding: const EdgeInsets.only(right: 150.0),
+            child: Column(
+              children: [
+                Text('Lucky-jade-plant',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 2.0,
+                ),),
+                SizedBox(height: 10,),
+                Text('Plants make your life minimal and happy\nlove the plants more and enjoy life.',
+                style: TextStyle(
+                  color: Colors.grey[700],
+                  fontSize: 12,
+                ),)
+              ],
+            ),
           ),
           Container(
             height: MediaQuery.of(context).size.height * .25,
