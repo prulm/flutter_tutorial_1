@@ -193,15 +193,34 @@ class _SpotifyState extends State<Spotify> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            ListView(
-              scrollDirection: Axis.horizontal,
-              // children: albumContainers(
-              //   context,
-
-              ),
-            ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        unselectedLabelStyle: TextStyle(
+          color: Colors.white,
+        ),
+        selectedLabelStyle: TextStyle(
+          color: Colors.white,
+        ),
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Colors.white,
+        backgroundColor: Colors.transparent,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home, color: Colors.white),
+            label: 'Home',
+            
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search, color: Colors.white),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.library_music, color: Colors.white),
+            label: 'Your library',
+          ),
+        ],
       ),
     );
   }
