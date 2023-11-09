@@ -13,10 +13,48 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final StreamController<int> _streamController = StreamController();
   var isVisible = false;
+  var showStrengthBar = true;
   late String _password;
   late String password_strength;
   late Color password_strength_color;
   late double password_strength_level;
+  FocusNode _passwordFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    _passwordFocusNode.addListener(_onFocusChange);
+  }
+
+  void _onFocusChange() {
+    setState(() {
+     showStrengthBar = true;
+    });
+  }
+
+  int passwordStrengthLevel(String s) {
+    int strength = 0;
+
+    RegExp letter_check = RegExp(r'^(?=.*?[A-Z, a-z])');
+    RegExp number_check = RegExp(r'^(?=.*?[0-9].*?[0-9])');
+    RegExp special_char_check = RegExp(r'^(?=.*?[!@#$%^&*])');
+
+    if (letter_check.hasMatch(s)) {
+      strength++;
+    }
+    if (number_check.hasMatch(s)) {
+      strength++;
+    }
+    if (special_char_check.hasMatch(s)) {
+      strength++;
+    }
+    return strength;
+  }
+
+  void password_strength_checker(String password) {
+    int strength = passwordStrengthLevel(password);
+    _streamController.add(strength);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,8 +151,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   )),
               onChanged: (value) {
                 _password = value;
+                password_strength_checker(_password);
               },
             ),
+            showStrengthBar ?
             Container(
               width: 400,
               height: 100,
@@ -135,7 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       password_strength_level = 0.65;
                     } else if (snapshot.data == 3) {
                       password_strength = "Strong";
-                      password_strength_color = Colors.amberAccent;
+                      password_strength_color = Colors.greenAccent;
                       password_strength_level = 1.0;
                     }
                     return Row(
@@ -158,7 +198,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     );
                   }),
-            ),
+            ) : SizedBox(),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {},
@@ -179,5 +219,13 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _passwordFocusNode.removeListener(_onFocusChange);
+    _passwordFocusNode.dispose();
+
+    super.dispose();
   }
 }
