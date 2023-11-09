@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -8,9 +10,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController _emailController = new TextEditingController();
-  var error = null;
+  final TextEditingController _emailController = TextEditingController();
+  final StreamController<int> _streamController = StreamController();
   var isVisible = false;
+  late String _password;
+  late String password_strength;
+  late Color password_strength_color;
+  late double password_strength_level;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +25,8 @@ class _LoginScreenState extends State<LoginScreen> {
         title: Container(
           alignment: Alignment.bottomCenter,
           width: 200,
-          child: Image.asset('assets/images/logo.png',
+          child: Image.asset(
+            'assets/images/logo.png',
             fit: BoxFit.cover,
           ),
         ),
@@ -32,17 +39,15 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text(
                 "Welcome Back!",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                 ),
-              ),]
-            ),
+              ),
+            ]),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {},
@@ -77,14 +82,14 @@ class _LoginScreenState extends State<LoginScreen> {
             TextField(
               controller: _emailController,
               decoration: InputDecoration(
-                  hintText: "Enter Email Address",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(
-                      width: 1,
-                    ),
+                hintText: "Enter Email Address",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide(
+                    width: 1,
                   ),
-                  ),
+                ),
+              ),
             ),
             SizedBox(height: 30),
             TextField(
@@ -107,45 +112,54 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   )),
               onChanged: (value) {
-                if (value.length < 8) {
-                  setState(() {
-                    error = "Too short";
-                  });
-                } else if (value.length < 12) {
-                  setState(() {
-                    error = "Weak Password";
-                  });
-                } else {
-                  setState(() {
-                    error = "Strong";
-                  });
-                }
+                _password = value;
               },
             ),
             Container(
               width: 400,
               height: 100,
-              child: Row(
-                children: [
-                  Container(
-                    width: 220,
-                    height: 5,
-                    margin: EdgeInsets.only(left: 8),
-                    child: LinearProgressIndicator(
-                      value: 0.3,
-                      color: Colors.green,
-                      backgroundColor: Colors.grey,
-                    ),
-                  ),
-                  Container(
-                    width: 70,
-                    margin: EdgeInsets.only(left: 8),
-                    child: Text("Good"),
-                  ),
-                ],
-              ),
+              child: StreamBuilder(
+                  stream: _streamController.stream,
+                  builder: (context, snapshot) {
+                    if (snapshot.data == null || snapshot.data == 0) {
+                      password_strength = "";
+                      password_strength_color = Colors.grey;
+                      password_strength_level = 0;
+                    } else if (snapshot.data == 1) {
+                      password_strength = "Weak";
+                      password_strength_color = Colors.redAccent;
+                      password_strength_level = 0.3;
+                    } else if (snapshot.data == 2) {
+                      password_strength = "Moderate";
+                      password_strength_color = Colors.amberAccent;
+                      password_strength_level = 0.65;
+                    } else if (snapshot.data == 3) {
+                      password_strength = "Strong";
+                      password_strength_color = Colors.amberAccent;
+                      password_strength_level = 1.0;
+                    }
+                    return Row(
+                      children: [
+                        Container(
+                          width: 220,
+                          height: 5,
+                          margin: EdgeInsets.only(left: 8),
+                          child: LinearProgressIndicator(
+                            value: password_strength_level,
+                            color: password_strength_color,
+                            backgroundColor: Colors.grey,
+                          ),
+                        ),
+                        Container(
+                          width: 70,
+                          margin: EdgeInsets.only(left: 8),
+                          child: Text(password_strength),
+                        ),
+                      ],
+                    );
+                  }),
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {},
               child: Text(
@@ -158,8 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 backgroundColor: const Color.fromARGB(255, 2, 25, 44),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(30))),
-                padding: EdgeInsets.symmetric(
-                    vertical: 20, horizontal: 200),
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 200),
               ),
             ),
           ],
