@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial_1/screens/landing.dart';
+import 'package:flutter_tutorial_1/screens/login.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -24,7 +25,7 @@ class Home extends StatelessWidget {
         onPressed: () {
           Navigator.push(
               context, 
-              MaterialPageRoute(builder: (context) => Landing())
+              MaterialPageRoute(builder: (context) => LoginScreen())
               );
         },
         child: Text('Click')));
