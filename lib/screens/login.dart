@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _onFocusChange() {
     setState(() {
-     showStrengthBar = true;
+      showStrengthBar = true;
     });
   }
 
@@ -36,17 +36,29 @@ class _LoginScreenState extends State<LoginScreen> {
     int strength = 0;
 
     RegExp letter_check = RegExp(r'^(?=.*?[A-Z, a-z])');
-    RegExp number_check = RegExp(r'^(?=.*?[0-9].*?[0-9])');
+    RegExp number_check = RegExp(r'^(?=.*?[0-9])');
     RegExp special_char_check = RegExp(r'^(?=.*?[!@#$%^&*])');
 
     if (letter_check.hasMatch(s)) {
-      strength++;
+      if (_password.length < 6) {
+        strength = 1;
+      } else {
+        strength++;
+      }
     }
     if (number_check.hasMatch(s)) {
-      strength++;
+      if (_password.length < 6) {
+        strength = 1;
+      } else {
+        strength++;
+      }
     }
     if (special_char_check.hasMatch(s)) {
-      strength++;
+      if (_password.length < 6) {
+        strength = 1;
+      } else {
+        strength++;
+      }
     }
     return strength;
   }
@@ -154,51 +166,52 @@ class _LoginScreenState extends State<LoginScreen> {
                 password_strength_checker(_password);
               },
             ),
-            showStrengthBar ?
-            Container(
-              width: 400,
-              height: 100,
-              child: StreamBuilder(
-                  stream: _streamController.stream,
-                  builder: (context, snapshot) {
-                    if (snapshot.data == null || snapshot.data == 0) {
-                      password_strength = "";
-                      password_strength_color = Colors.grey;
-                      password_strength_level = 0;
-                    } else if (snapshot.data == 1) {
-                      password_strength = "Weak";
-                      password_strength_color = Colors.redAccent;
-                      password_strength_level = 0.3;
-                    } else if (snapshot.data == 2) {
-                      password_strength = "Moderate";
-                      password_strength_color = Colors.amberAccent;
-                      password_strength_level = 0.65;
-                    } else if (snapshot.data == 3) {
-                      password_strength = "Strong";
-                      password_strength_color = Colors.greenAccent;
-                      password_strength_level = 1.0;
-                    }
-                    return Row(
-                      children: [
-                        Container(
-                          width: 220,
-                          height: 5,
-                          margin: EdgeInsets.only(left: 8),
-                          child: LinearProgressIndicator(
-                            value: password_strength_level,
-                            color: password_strength_color,
-                            backgroundColor: Colors.grey,
-                          ),
-                        ),
-                        Container(
-                          width: 70,
-                          margin: EdgeInsets.only(left: 8),
-                          child: Text(password_strength),
-                        ),
-                      ],
-                    );
-                  }),
-            ) : SizedBox(),
+            showStrengthBar
+                ? Container(
+                    width: 400,
+                    height: 100,
+                    child: StreamBuilder(
+                        stream: _streamController.stream,
+                        builder: (context, snapshot) {
+                          if (snapshot.data == null || snapshot.data == 0) {
+                            password_strength = "";
+                            password_strength_color = Colors.grey;
+                            password_strength_level = 0;
+                          } else if (snapshot.data == 1) {
+                            password_strength = "Weak";
+                            password_strength_color = Colors.redAccent;
+                            password_strength_level = 0.3;
+                          } else if (snapshot.data == 2) {
+                            password_strength = "Moderate";
+                            password_strength_color = Colors.amberAccent;
+                            password_strength_level = 0.65;
+                          } else if (snapshot.data == 3) {
+                            password_strength = "Strong";
+                            password_strength_color = Colors.greenAccent;
+                            password_strength_level = 1.0;
+                          }
+                          return Row(
+                            children: [
+                              Container(
+                                width: 220,
+                                height: 5,
+                                margin: EdgeInsets.only(left: 8),
+                                child: LinearProgressIndicator(
+                                  value: password_strength_level,
+                                  color: password_strength_color,
+                                  backgroundColor: Colors.grey,
+                                ),
+                              ),
+                              Container(
+                                width: 70,
+                                margin: EdgeInsets.only(left: 8),
+                                child: Text(password_strength),
+                              ),
+                            ],
+                          );
+                        }),
+                  )
+                : SizedBox(),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {},
