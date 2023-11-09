@@ -122,7 +122,30 @@ class _LoginScreenState extends State<LoginScreen> {
                 }
               },
             ),
-            SizedBox(height: 50),
+            Container(
+              width: 400,
+              height: 100,
+              child: Row(
+                children: [
+                  Container(
+                    width: 220,
+                    height: 5,
+                    margin: EdgeInsets.only(left: 8),
+                    child: LinearProgressIndicator(
+                      value: 0.3,
+                      color: Colors.green,
+                      backgroundColor: Colors.grey,
+                    ),
+                  ),
+                  Container(
+                    width: 70,
+                    margin: EdgeInsets.only(left: 8),
+                    child: Text("Good"),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {},
               child: Text(
